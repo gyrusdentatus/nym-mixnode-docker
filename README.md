@@ -1,5 +1,5 @@
 # nym-mixnode-docker
-docker image for nym-mixnode
+## docker image for nym-mixnode
 
 Download the repo
 ``` 
@@ -13,7 +13,7 @@ build the image
 ```
 docker build -t nym-mixnode .
 ```
-
+run it somehow
 ```
 docker run ....
 ```
