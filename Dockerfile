@@ -1,4 +1,4 @@
-FROM ubuntu:latest
+FROM ubuntu:18.04
 
 # Install basic environment dependencies
 RUN apt-get update && apt-get install -y --no-install-recommends \
@@ -6,8 +6,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     ca-certificates \
     pkg-config \
     build-essential \
-    libssl-dev \
-    python3
+    libssl-dev && rm -rf /var/lib/apt/lists/*
 
 RUN useradd -U -m -s /sbin/nologin nym
 # Clean up apt packages so the docker image is as compact as possible
