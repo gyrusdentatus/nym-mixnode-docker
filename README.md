@@ -13,7 +13,14 @@ build the image
 ```
 docker build -t nym-mixnode .
 ```
-run it somehow
+launch the container in dettached mode 
 ```
-docker run nym-mixnode -p 1789:1789 /bin/bash -c "./nym-mixnode_linux_x86_64 init --id nym-mixnode --layer 2 --location='AnsibleByHans' --host 0.0.0.0 --announce-host <INSERT YOUR MACHINE IP HERE!!> && ./nym-mixnode_linux_x86_64 run --id nym-mixnode"
+docker run -p 1789:1789 -dit nym-mixnode --name nym-mixnode
 ```
+Change the --host-ip and you are GOOD TO GO EVEN FROM CLOUD ! 
+```
+docker exec nym-mixnode ./nym-mixnode_linux_x86_64 init --id nym --layer 2 --location 'DockerByHans' --host 0.0.0.0 --announce-host <!!!YOUR_HOST_IP!!!!> && ./nym-mixnode_linux_x86_64 run --id nym
+```
+
+
+** MAKE SURE YOU HAVE UFW ALLOW 22/TCP ELSE IT WON'T WORK ** 
