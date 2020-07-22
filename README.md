@@ -15,5 +15,5 @@ docker build -t nym-mixnode .
 ```
 run it somehow
 ```
-docker run ....
+docker run nym-mixnode -p 1789:1789 /bin/bash -c "./nym-mixnode_linux_x86_64 init --id nym-mixnode --layer 2 --location='AnsibleByHans' --host 0.0.0.0 --announce-host <INSERT YOUR MACHINE IP HERE!!> && ./nym-mixnode_linux_x86_64 run --id nym-mixnode"
 ```
