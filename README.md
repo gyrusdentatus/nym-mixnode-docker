@@ -23,4 +23,4 @@ docker exec nym-mixnode ./nym-mixnode_linux_x86_64 init --id nym --layer 2 --loc
 ```
 
 
-** MAKE SURE YOU HAVE UFW ALLOW 22/TCP ELSE IT WON'T WORK ** 
+** MAKE SURE YOU HAVE UFW ALLOW 1789/TCP ELSE IT WON'T WORK ** 
