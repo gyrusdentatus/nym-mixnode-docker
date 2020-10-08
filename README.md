@@ -3,6 +3,7 @@
 
 This is an unofficial Docker image created by me with a help of [@snek](https://github.com/snek), so big credits to him! 
 This image uses pre-compiled binaries from the official [NYM github repository](https://github.com/nymtech/nym/releases)
+The size of this is only 96 MB, which is quite nice given that it is not a distro-less image.
 Feel free to ask me any questions on telegram @hansbricks or in our [community help chat](https://t.me/nymchan_help_chat) 
 
 ### Prerequisites:
