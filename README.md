@@ -51,7 +51,9 @@ docker run -v $HOME/.nym/:/home/nym/.nym -d -p 1789:1789 nym-mixnode
 
 ``` 
 Then just check the [dashboard](https://dashboard.nymtech.net/) or you can fetch json data if you have jq installed on your system such as this:
-``` curl https://directory.nymtech.net/api/presence/topology | jq -r . ``` see jq man for more info how to parse the output. 
+
+``` curl https://directory.nymtech.net/api/presence/topology | jq -r . ``` 
+see jq man for more info how to parse the output. 
 
 
 ** MAKE SURE YOU HAVE UFW ALLOW 1789/TCP ELSE IT WON'T WORK ** 
