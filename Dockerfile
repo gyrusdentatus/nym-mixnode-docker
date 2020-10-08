@@ -8,7 +8,7 @@ RUN set -ex \
 WORKDIR /home/nym
 
 COPY nym-mixnode_linux_x86_64 .
-COPY nym-init.sh .
+COPY nym_init.sh .
 # Change onwership and permissions
 RUN chmod 755 nym-mixnode_linux_x86_64 && chown -R nym:nym ./
 VOLUME [ "/home/nym/.nym" ]
