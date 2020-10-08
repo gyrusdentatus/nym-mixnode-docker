@@ -1,5 +1,5 @@
-#!/usr/bin/env bash 
-while getopts h:i:l: option
+#!/usr/bin/env bash
+while getopts h:i:l:p option
 do
     case "${option}"
         in
@@ -8,12 +8,11 @@ do
         l) LAYER=${OPTARG};;
     esac
 done
-
+#set -x
 echo "Checking for pem files"
-if [ ! -f /home/nym/.nym/mixnode/${ID}/data/private_sphinx.pem ] || [ ! -f /home/nym/.nym/mixnode/${ID}/data/public_sphinx.pem ]; then
+if [ ! -f $HOME/.nym/mixnodes/$ID/data/private_sphinx.pem ] || [ ! -f $HOME/.nym/mixnodes/$ID/data/public_sphinx.pem ]; then
     echo "Missing pem files, running init"
-    nym-mixnode init --host ${HOST} --id ${ID} --layer ${LAYER}
-fi
-if [ -f /home/nym/.nym/mixnode/${ID}/data/private_sphinx.pem ] && [ -f /home/nym/.nym/mixnode/${ID}/data/public_sphinx.pem ]; then
-    echo "Pem files found"
+    ./nym-mixnode_linux_x86_64 init --host 0.0.0.0 --announce-host ${HOST} --id ${ID} --layer ${LAYER}
+elif [ -f $HOME/.nym/mixnodes/${ID}/data/private_sphinx.pem ] || [ -f $HOME/.nym/mixnodes/${ID}/data/public_sphinx.pem ]; then
+    echo "Keys and config files found. Not overwriting ..."
 fi
