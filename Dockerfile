@@ -1,24 +1,20 @@
-FROM ubuntu:18.04
+FROM bitnami/minideb:buster
 
-# Install basic environment dependencies
-RUN apt-get update && apt-get install -y --no-install-recommends \
-    bash \
-    ca-certificates \
-    pkg-config \
-    build-essential \
-    libssl-dev && rm -rf /var/lib/apt/lists/*
-
-RUN useradd -U -m -s /sbin/nologin nym
+RUN set -ex \
+    && install_packages libssl1.1 ca-certificates tini \
+    && useradd -U -m -s /sbin/nologin nym
 # Clean up apt packages so the docker image is as compact as possible
-RUN apt-get clean && apt-get autoremove
 
 WORKDIR /home/nym
 
 COPY nym-mixnode_linux_x86_64 .
-
+COPY nym-init.sh .
 # Change onwership and permissions
 RUN chmod 755 nym-mixnode_linux_x86_64 && chown -R nym:nym ./
+VOLUME [ "/home/nym/.nym" ]
+ENTRYPOINT ["/usr/bin/tini", "-v", "--"]
+
 USER nym
 EXPOSE 1789
 
-CMD /bin/bash
+CMD [ "/home/nym/nym-mixnode_linux_x86_64", "run", "--id", "nym"]
