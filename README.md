@@ -23,20 +23,32 @@ cd nym-mixnode-docker
 ```
 docker build -t nym-mixnode .
 ```
-= launch the container in dettached mode 
-```
-docker run -p 1789:1789 -dit nym-mixnode --name nym-mixnode
-```
-- Change the --host-ip and you are GOOD TO GO EVEN FROM THE CLOUD ! 
+
+### Configuration
+
+The nym mixnode assumes there's a config.toml and two pem files. The location of the pem files can be configured in the config.toml. 
+
+CMD [ "/home/nym/nym-mixnode_linux_x86_64", "run", "--id", "nym"]
+
+This means the process will assume the name of the node is "nym" and will look in the following directory for the config file: /home/nym/.nym/mixnodes/nym/config/config.toml
+
+A VOLUME is configured for the directory: VOLUME [ "/home/nym/.nym" ] This lets you mount this directory for easy configuration.
+
+### Deployment
+If you do not have your node initialized and therefore have no config.toml and key files, you can init the node with the attached script nym_init.sh
+It will create config and keys in your user's home directory in .nym/. 
+
+``` chmod +x nym_init.sh && ./nym-init.sh -h <PUBLIC-IP> -i <ID> -l <LAYER 1-3> --location <COUNTRY> ```
 ##### Remember, if you are running this container from a cloud provider or your home network, your public IP is not beginning with 172.xxxx . 10.xxxx or 192.xxxx 
-##### To get your ip addr, simply copy this command and hit enter in your terminal ``` curl -sS v4.icanhazip.com ``` .
+##### To get your ip addr, simply copy this command and hit enter in your terminal ``` curl -sS v4.icanhazip.com ``` 
 
+If you already have config and keys from previous versions, you can simply specify where they are in your system and run the container with config stored in external volume.
+Assuming your config and keys are stored in a folder .nym/ in your user's home directory then you can launch it with this command.
+- launch the container with volume 
 ```
-docker exec nym-mixnode ./nym-mixnode_linux_x86_64 init --id nym --layer 2 --location 'DockerByHans' --host 0.0.0.0 --announce-host <!!!YOUR_HOST_IP!!!!> && ./nym-mixnode_linux_x86_64 run --id nym
-```
---layer 1 will not work in the current version of Nym(0.7.0). It is most likely not caused by the Docker image itself, rather it is a bug in the official Nym code itself and the team is working on a fix. It does not matter anyway what layer you use in this version, so feel free to use either --layer 2 or --layer 3 during the init of the mixnode.
+docker run -v $HOME/.nym/:/home/nym/.nym -d -p 1789:1789 nym-mixnode
+``` 
 
-#### Thanks for contributing to the testnet! <3 
 
 
 ** MAKE SURE YOU HAVE UFW ALLOW 1789/TCP ELSE IT WON'T WORK ** 
