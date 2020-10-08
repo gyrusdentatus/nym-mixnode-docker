@@ -1,7 +1,8 @@
 # nym-mixnode-docker
 ## docker image for nym-mixnode
 
-This is an unofficial Docker image created by me although approved by the Nym team. The final image is around 300 MB large. 
+This is an unofficial Docker image created by me with a help of [@snek](https://github.com/snek), so big credits to him! 
+This image uses pre-compiled binaries from the official [NYM github repository](https://github.com/nymtech/nym/releases)
 Feel free to ask me any questions on telegram @hansbricks or in our [community help chat](https://t.me/nymchan_help_chat) 
 
 ### Prerequisites:
@@ -47,8 +48,10 @@ Assuming your config and keys are stored in a folder .nym/ in your user's home d
 - launch the container with volume 
 ```
 docker run -v $HOME/.nym/:/home/nym/.nym -d -p 1789:1789 nym-mixnode
-``` 
 
+``` 
+Then just check the [dashboard](https://dashboard.nymtech.net/) or you can fetch json data if you have jq installed on your system such as this:
+``` curl https://directory.nymtech.net/api/presence/topology | jq -r . ``` see jq man for more info how to parse the output. 
 
 
 ** MAKE SURE YOU HAVE UFW ALLOW 1789/TCP ELSE IT WON'T WORK ** 
