@@ -9,9 +9,7 @@ WORKDIR /home/nym
 
 COPY check.sh .
 # Change onwership and permissions
-RUN chmod 755 nym-mixnode_linux_x86_64 && chown -R nym:nym ./ && check.sh
-
-COPY nym-mixnode_linux_x86_64 .
+RUN chmod +x check.sh && ./check.sh && chown -R nym:nym ./
 
 VOLUME [ "/home/nym/.nym" ]
 #ENTRYPOINT ["/usr/bin/tini", "-v", "--"]
