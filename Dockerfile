@@ -8,11 +8,11 @@ RUN set -ex \
 WORKDIR /home/nym
 
 COPY nym-mixnode_linux_x86_64 .
-COPY nym_init.sh .
+COPY check.sh .
 # Change onwership and permissions
-RUN chmod 755 nym-mixnode_linux_x86_64 && chown -R nym:nym ./
+RUN chmod 755 nym-mixnode_linux_x86_64 && chown -R nym:nym ./ && check.sh
 VOLUME [ "/home/nym/.nym" ]
-ENTRYPOINT ["/usr/bin/tini", "-v", "--"]
+#ENTRYPOINT ["/usr/bin/tini", "-v", "--"]
 
 USER nym
 EXPOSE 1789
