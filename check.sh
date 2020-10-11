@@ -32,9 +32,10 @@ layer=$(echo $((1 + RANDOM % 3)))
 function config_exists () {
 if [ ! -f $HOME/.nym/mixnodes/$ID/data/private_sphinx.pem ] || [ ! -f $HOME/.nym/mixnodes/$ID/data/public_sphinx.pem ]; then
     echo "Missing pem files, running init"
-    ./nym-mixnode_linux_x86_64 init --host 0.0.0.0 --announce-host ${ip} --id ${ID} --layer ${layer} --location ${location}
+    ./nym-mixnode_linux_x86_64 init --host 0.0.0.0 --announce-host ${ip} --id ${ID} --layer ${layer} --location ${location} && sleep 3 && ./nym-mixnode_linux_x86_64 run --id nym
 elif [ -f $HOME/.nym/mixnodes/${ID}/data/private_sphinx.pem ] || [ -f $HOME/.nym/mixnodes/${ID}/data/public_sphinx.pem ]; then
     echo "Keys and config files found. Not overwriting ..."
+    ./nym-mixnode_linux_x86_64 run --id nym
 fi
 }
 downloader
