@@ -1,5 +1,5 @@
 #!/bin/bash
-#set -x
+set -x
 
 
 # This function checks the version and if the file exists.
@@ -23,20 +23,23 @@ fi
 }
 
 # set vars for the init phase
-ip=$(curl -s ipinfo.io/ip)
+# put here your ipv4 addr and wallet address
+ip="13.37.13.37"
 location=$(curl -s ipinfo.io/city)
 ID="nym"
 layer=$(echo $((1 + RANDOM % 3)))
+wallet_addr="xxxxxx"
+HOME=/home/nym
 
 # Check if the config files and keys exist and if not then it creates them with id "nym" locate in user home folder at .nym/
-function config_exists () {
+function config_init () {
 if [ ! -f $HOME/.nym/mixnodes/$ID/data/private_sphinx.pem ] || [ ! -f $HOME/.nym/mixnodes/$ID/data/public_sphinx.pem ]; then
     echo "Missing pem files, running init"
-    ./nym-mixnode_linux_x86_64 init --host 0.0.0.0 --announce-host ${ip} --id ${ID} --layer ${layer} --location ${location} && sleep 3 && ./nym-mixnode_linux_x86_64 run --id nym
+    ./nym-mixnode_linux_x86_64 init --host 0.0.0.0 --announce-host ${ip} --id ${ID} --layer ${layer} --incentives-address ${wallet_addr} --location ${location} && sleep 3 && ./nym-mixnode_linux_x86_64 run --id nym
 elif [ -f $HOME/.nym/mixnodes/${ID}/data/private_sphinx.pem ] || [ -f $HOME/.nym/mixnodes/${ID}/data/public_sphinx.pem ]; then
     echo "Keys and config files found. Not overwriting ..."
     ./nym-mixnode_linux_x86_64 run --id nym
 fi
 }
 downloader
-config_exists
+config_init

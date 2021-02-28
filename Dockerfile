@@ -12,9 +12,10 @@ RUN chmod +x check.sh && chown -R nym:nym ./
 
 USER nym
 
-VOLUME [ "/home/nym/.nym" ]
+#VOLUME [ "/home/nym/.nym" ]
 
 
 EXPOSE 1789
 
 CMD [ "./check.sh" ]
+#ENTRYPOINT [ "/bin/bash" ]
