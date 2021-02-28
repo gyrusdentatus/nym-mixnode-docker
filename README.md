@@ -55,11 +55,14 @@ docker logs nym-mixnode
 
 This will give you essentialy the same output as you would while running the binaries directly. 
 
-``` 
 Then just check the [dashboard](https://testnet-explorer.nymtech.net/) or you can fetch json data if you have jq installed on your system such as this:
 
-```curl https://testnet-explorer.nymtech.net/downloads/topology.json | jq '.'``` 
+```
+curl https://testnet-explorer.nymtech.net/downloads/topology.json | jq '.'
+
+``` 
 see jq man for more info how to parse the output. 
 
 **NOTE:** At the time of writing this, the mixnet is capped to 1500 mixnodes. Meaning if the network is full, the container will just exit. 
-** MAKE SURE YOU HAVE UFW ALLOW 1789/TCP ELSE IT WON'T WORK ** 
+
+**MAKE SURE YOU HAVE UFW ALLOW 1789/TCP ELSE IT WON'T WORK** 
